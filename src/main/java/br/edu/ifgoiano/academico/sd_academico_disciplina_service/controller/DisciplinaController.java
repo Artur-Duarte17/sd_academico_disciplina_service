@@ -16,6 +16,8 @@ import java.util.List;
 @Tag(name = "Disciplinas", description = "Cadastro e consulta de disciplinas")
 public class DisciplinaController {
 
+    private static final Logger logger = LoggerFactory.getLogger(DisciplinaController.class);
+
     private final DisciplinaService service;
 
     public DisciplinaController(DisciplinaService service) {
@@ -25,12 +27,14 @@ public class DisciplinaController {
     @PostMapping
     @Operation(summary = "Criar disciplina", description = "Cadastra uma nova disciplina.")
     public ResponseEntity<DisciplinaResponseDTO> criar(@RequestBody DisciplinaRequestDTO dto) {
+        logger.info("[DISCIPLINA-SERVICE] POST /disciplinas - código: {}", dto.getCodigo());
         return ResponseEntity.ok(service.salvar(dto));
     }
 
     @GetMapping
     @Operation(summary = "Listar disciplinas", description = "Retorna todas as disciplinas cadastradas.")
     public ResponseEntity<List<DisciplinaResponseDTO>> listar() {
+        logger.info("[DISCIPLINA-SERVICE] GET /disciplinas");
         return ResponseEntity.ok(service.listarTodas());
     }
 
