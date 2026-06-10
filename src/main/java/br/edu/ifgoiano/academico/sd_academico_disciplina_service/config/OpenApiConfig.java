@@ -2,8 +2,11 @@ package br.edu.ifgoiano.academico.sd_academico_disciplina_service.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 /**
  * Configuração do OpenAPI/Swagger.
@@ -17,7 +20,11 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI disciplinaServiceOpenAPI() {
-        return new OpenAPI().info(new Info()
+        return new OpenAPI()
+                .servers(List.of(
+                        new Server().url("/disciplina").description("Via API Gateway"),
+                        new Server().url("/").description("Acesso direto ao serviço")))
+                .info(new Info()
                 .title("Disciplina Service API")
                 .description("API de cadastro e consulta de disciplinas do Sistema Acadêmico Distribuído.")
                 .version("v1"));
